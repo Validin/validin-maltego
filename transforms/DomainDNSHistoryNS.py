@@ -1,28 +1,31 @@
-from maltego_trx.entities import IPv4Address, IPv6Address
+
+import requests
+from maltego_trx.entities import IPAddress, NS
 from maltego_trx.maltego import UIM_TYPES, MaltegoMsg, MaltegoTransform
 from maltego_trx.transform import DiscoverableTransform
+from settings import VALIDIN_ENDPOINT, VALIDIN_API_KEY
 
 
-@registry.register_transform(display_name="Domain DNS Infrastructure", input_entity="maltego.DNSName",
-                             description='Receive DNS name from the Client, and resolve all historic A, AAAA, and NS records.',
-                             output_entities=["maltego.IPv4Address", "maltego.IPv6Address", "maltego.DNSName"])
-class DomainDNSHistory(DiscoverableTransform):
+#@registry.register_transform(display_name="Domain DNS Infrastructure", input_entity="maltego.DNSName",
+#                             description='Receive DNS name from the Client, and resolve all historic A, AAAA, and NS records.',
+#                             output_entities=["maltego.IPv4Address", "maltego.IPv6Address", "maltego.NSRecord"])
+class DomainDNSHistoryNS(DiscoverableTransform):
 
   @classmethod
   def create_entities(cls, request: MaltegoMsg, response: MaltegoTransform):
     domain_name = request.Value
-    endpoint = request.TransformSettings.get("ValidinEndpoint", "app.validin.com")
-    api_key = "Bearer " + request.TransformSettings.get("ValidinApiKey", "")
+    endpoint = VALIDIN_ENDPOINT
+    api_key = "Bearer " + VALIDIN_API_KEY
     headers = {'Authorization': api_key}
     path = "/api/axon/domain/dns/history/"
-    url = f"https://{endpoint}{path}{domain_name}"
+    url = f"https://{endpoint}{path}{domain_name}/NS"
 
     try:
       # Make a GET request to the API endpoint
       res = requests.get(url, headers=headers)
       res.raise_for_status()  # Raises an HTTPError for bad responses
 
-      # Assuming the response is in JSON format and has a structure like:
+      # The response is in JSON format and has a structure like:
       # res.json() => {'records': {'A': [...], 'AAAA': [...], 'NS': [...]}}
 
       data = res.json()
@@ -36,12 +39,8 @@ class DomainDNSHistory(DiscoverableTransform):
           last_seen = record.get('last_seen')
 
           # Determine entity type based on DNS record type
-          if record_type == 'A':
-            entity = response.addEntity(IPv4Address, value)
-          elif record_type == 'AAAA':
-            entity = response.addEntity(IPv6Address, value)
-          elif record_type == 'NS':
-            entity = response.addEntity(DNSName, value)
+          if record_type == 'NS':
+            entity = response.addEntity(NS, value)
           else:
             continue  # Skip unknown record types
 
@@ -51,8 +50,8 @@ class DomainDNSHistory(DiscoverableTransform):
           entity.addProperty("record_type", "Record Type", "strict", record_type)
 
     except requests.exceptions.HTTPError as http_err:
-        response.addUIMessage(f"HTTP error occurred: {http_err}", UIM_TYPES["partialError"])
+        response.addUIMessage(f"HTTP error occurred: {http_err}")
     except Exception as err:
-        response.addUIMessage(f"An error occurred: {err}", UIM_TYPES["fatalError"])
+        response.addUIMessage(f"An error occurred: {err}")
 
     return response

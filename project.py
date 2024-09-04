@@ -12,4 +12,4 @@ registry.write_transforms_config(include_output_entities=True)
 registry.write_settings_config()
 
 if __name__ == '__main__':
-    handle_run(__name__, sys.argv, application)
+  handle_run(__name__, sys.argv, application)
