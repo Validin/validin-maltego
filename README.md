@@ -5,7 +5,7 @@ Maltego transforms for Validin APIs
 The Validin Maltego Transform currently only supports local transform usage.
 
 ## Dependencies
-This maltego transform requires python and pip, use your favorite package manager to install python or download directly from the [official python website](https://www.python.org/downloads/). If you have python already installed, continue to the next step. 
+This maltego transform requires python 3.8 or greater and pip, use your favorite package manager to install python or download directly from the [official python website](https://www.python.org/downloads/). If you have python already installed, continue to the next step. 
 You will need to install the maltego-trx and requests packages, if you don't have them already.
 Check your installation of these packages using the commands below:
 ```
