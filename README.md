@@ -4,6 +4,21 @@ Maltego transforms for Validin APIs
 # Usage
 The Validin Maltego Transform currently only supports local transform usage.
 
+## Dependencies
+This maltego transform requires python and pip, use your favorite package manager to install python or download directly from the [official python website](https://www.python.org/downloads/). If you have python already installed, continue to the next step. 
+You will need to install the maltego-trx and requests packages, if you don't have them already.
+Check your installation of these packages using the commands below:
+```
+pip show maltego-trx
+pip show requests
+```
+
+If these packages are not installed:
+```
+pip install maltego-trx
+pip install requests
+```
+
 ## Setup
 To Use the Validin Maltego Transform:
 1. Clone this repo locally.
@@ -13,7 +28,7 @@ To Use the Validin Maltego Transform:
 4. In the transforms tab, select the transform manager, and select all the transforms that start with "Validin - ". In the bottom right of the transform manager, do the following 2 things:
 - Change the "Command Line" field to point to your python installation. E.g. "C://Users/sreekarmadabushi/bin/python3.exe"
 - Change the "Working directory" field to point to the directory of the validin-maltego repo that you have cloned locally. E.g. "C://Users/sreekarmadabushi/Documents/Validin/validin-maltego/"
-![Screenshot 2024-09-04 at 4 03 35 PM](https://github.com/user-attachments/assets/ff03a320-3ac3-4ac3-9f50-462444f4b5fe)
+<img width="1350" src="https://github.com/user-attachments/assets/ff03a320-3ac3-4ac3-9f50-462444f4b5fe">
 
 5. Happy Hunting!
 
