@@ -43,3 +43,4 @@ To Use the Validin Maltego Transform:
  - maltego.Hash
  - maltego.JARMFingerprint
  - maltego.SSLCertificateHash
+ - maltego.Phrase
