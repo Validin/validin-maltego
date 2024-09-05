@@ -22,7 +22,7 @@ pip install requests
 ## Setup
 To Use the Validin Maltego Transform:
 1. Clone this repo locally.
-2. In the settings.py file of the repository, add your Validin API Key. Can be found by viewing your profile on [Validin](app.validin.com/profile)
+2. In the settings.py file of the repository, add your Validin API Key. Can be found by viewing your profile on [Validin](https://app.validin.com/profile)
 3. Open Maltego and using Import Config, import the validin.mtz file from the repository
 
 <img width="1350" alt="Screenshot 2024-09-04 at 4 08 05 PM" src="https://github.com/user-attachments/assets/e1181a2c-c220-4f91-9a50-ba539bc4077d">
